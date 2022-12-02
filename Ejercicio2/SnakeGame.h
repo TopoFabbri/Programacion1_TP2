@@ -6,6 +6,11 @@
 class SnakeGame
 {
 private:
+	float deltaClock;
+	float delta;
+	int frames;
+	int fps;
+
 	bool isGameOver;
 	bool hasWon;
 	int winSnakeLength;
@@ -24,4 +29,7 @@ public:
 	void draw();
 
 	void input();
+	bool snakeMapColliding();
+
+	float getTime();
 };

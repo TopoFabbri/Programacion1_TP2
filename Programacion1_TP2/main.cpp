@@ -14,7 +14,7 @@ void main()
 void runProgram()
 {
     defaults();
-    SnakeGame* game = new SnakeGame(50);
+    SnakeGame* game = new SnakeGame(400);
     game->loop();
     delete game;
 }

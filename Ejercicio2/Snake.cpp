@@ -7,27 +7,13 @@ Snake::Snake(Vector2 pos, int maxTailLength)
 	for (int i = 0; i < 50; i++)
 		tail[i] = { 0, 0 };
 
-	dir = { 0, 0 };
-
-	curTailLength = 1;
+	curTailLength = 0;
 	this->maxTailLength = maxTailLength;
+	speed = 1;
 }
 
 Snake::~Snake()
 {
-}
-
-void Snake::move()
-{
-	curTailLength++;
-
-	for (int i = curTailLength - 1; i > 0; i--)
-		tail[i] = tail[i - 1];
-
-	tail[0] = pos;
-
-	pos.x += dir.x;
-	pos.y += dir.y;
 }
 
 void Snake::draw()
@@ -44,36 +30,53 @@ void Snake::draw()
 
 void Snake::turnRight()
 {
-	if (static_cast<int>(dir.x) == 0)
-	{
-		dir.y = 0;
-		dir.x = 1;
-	}
+	tail[curTailLength] = pos;
+
+	pos.x++;
+	curTailLength++;
 }
 
 void Snake::turnLeft()
 {
-	if (static_cast<int>(dir.x) == 0)
-	{
-		dir.y = 0;
-		dir.x = -1;
-	}
+	tail[curTailLength] = pos;
+
+	pos.x--;
+	curTailLength++;
 }
 
 void Snake::turnUp()
 {
-	if (static_cast<int>(dir.y) == 0)
-	{
-		dir.y = -1;
-		dir.x = 0;
-	}
+	tail[curTailLength] = pos;
+
+	pos.y--;
+	curTailLength++;
 }
 
 void Snake::turnDown()
 {
-	if (static_cast<int>(dir.y) == 0)
+	tail[curTailLength] = pos;
+
+	pos.y++;
+	curTailLength++;
+}
+
+int Snake::getLength()
+{
+	return curTailLength;
+}
+
+Vector2 Snake::getPos()
+{
+	return pos;
+}
+
+bool Snake::tailColliding()
+{
+	for (int i = 0; i < curTailLength; i++)
 	{
-		dir.y = 1;
-		dir.x = 0;
+		if (tail[i].x == pos.x && tail[i].y == pos.y)
+			return true;
 	}
+
+	return false;
 }
